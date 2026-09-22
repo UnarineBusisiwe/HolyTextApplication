@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="@color/HolyTextApplication_background"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/logo"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/app_name" />
+    <!-- HolyText title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textColor="@color/HolyTextApplication_primary"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Tagline -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tagline"
+        android:textColor="@color/HolyTextApplication_text_secondary"
+        android:textSize="16sp"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Welcome message -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_title"
+        android:textColor="@color/HolyTextApplication_text_primary"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Description -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description_text"
+        android:textColor="@color/HolyTextApplication_text_secondary"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Start Reading button -->
+    <Button
+        android:id="@+id/btnStartReading"
+        android:layout_width="320dp"
+        android:layout_height="56dp"
+        android:text="@string/button_start_reading"
+        android:textColor="@color/HolyTextApplication_white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/HolyTextApplication_primary"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnReadBible"
+        android:layout_width="280dp"
+        android:layout_height="56dp"
+        android:text="  Read Bible"
+        android:textAllCaps="false"
+        android:textColor="@color/HolyTextApplication_white"
+        android:backgroundTint="@color/HolyTextApplication_primary"
+        android:drawableStart="@drawable/ic_book"
+        android:drawablePadding="12dp"
+        android:layout_marginBottom="16dp" />
+</LinearLayout>

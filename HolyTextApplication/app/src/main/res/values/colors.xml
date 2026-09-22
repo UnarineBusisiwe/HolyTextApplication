@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- HolyText Primary Colours -->
+    <color name="HolyTextApplication_primary">#5E4B3C</color>
+    <color name="HolyTextApplication_primary_dark">#3F3026</color>
+    <color name="HolyTextApplication_accent">#C59A5A</color>
+
+    <!-- Background Colours -->
+    <color name="HolyTextApplication_background">#F8F4EE</color>
+    <color name="HolyTextApplication_surface">#FFFFFF</color>
+
+    <!-- Text Colours -->
+    <color name="HolyTextApplication_text_primary">#2E2A27</color>
+    <color name="HolyTextApplication_text_secondary">#756B63</color>
+
+    <!-- Utility Colours -->
+    <color name="HolyTextApplication_white">#FFFFFF</color>
+    <color name="HolyTextApplication_black">#000000</color>
+
+</resources>

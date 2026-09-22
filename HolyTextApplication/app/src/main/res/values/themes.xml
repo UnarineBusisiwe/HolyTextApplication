@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.HolyTextApplication" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- Main HolyText colours -->
+        <item name="colorPrimary">@color/HolyTextApplication_primary</item>
+        <item name="colorPrimaryContainer">@color/HolyTextApplication_primary_dark</item>
+        <item name="colorSecondary">@color/HolyTextApplication_accent</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@color/HolyTextApplication_background</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/HolyTextApplication_primary_dark</item>
+
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/HolyTextApplication_primary_dark</item>
+
+
+
+    </style>
+
+</resources>

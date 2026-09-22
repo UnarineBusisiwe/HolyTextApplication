@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "712120144521",
+    "project_id": "holytextapplication",
+    "storage_bucket": "holytextapplication.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712120144521:android:5bafbdcb1cbc6a5381ac58",
+        "android_client_info": {
+          "package_name": "com.example.holytextapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQkdXD1LRtFCiS52ViumSOYtLXSScAxwE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

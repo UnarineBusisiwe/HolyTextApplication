@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/HolyTextApplication_background">
+
+    <!-- Toolbar -->
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/HolyTextApplication_primary"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="HolyText"
+        app:titleTextColor="@color/HolyTextApplication_white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Welcome Card -->
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/HolyTextApplication_primary"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/tvWelcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome"
+                        android:textColor="@color/HolyTextApplication_white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvStreak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="🔥 0 day streak"
+                        android:textColor="@color/HolyTextApplication_white"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvFaithPoints"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="⭐ 0 Faith Points"
+                        android:textColor="@color/HolyTextApplication_white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- Section title -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bible Study"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Read Bible -->
+
+            <Button
+                android:id="@+id/btnReadBible"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="📖  Read Bible"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Search -->
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🔎  Search Bible"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Bookmarks -->
+
+            <Button
+                android:id="@+id/btnBookmarks"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🔖  Bookmarks &amp; Highlights"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Notes -->
+
+            <Button
+                android:id="@+id/btnNotes"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="📝  Personal Notes"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="20dp" />
+
+
+            <!-- Section title -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Study &amp; Explore"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Reading Plans -->
+
+            <Button
+                android:id="@+id/btnReadingPlans"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="📅  Reading Plans"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Audio Bible -->
+
+            <Button
+                android:id="@+id/btnAudioBible"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🎧  Audio Bible"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Trivia -->
+
+            <Button
+                android:id="@+id/btnTrivia"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🧠  Bible Trivia"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Word Search -->
+
+            <Button
+                android:id="@+id/btnWordSearch"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🔤  Bible Word Search"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="20dp" />
+
+
+            <!-- Progress -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Progress"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Streak -->
+
+            <Button
+                android:id="@+id/btnStreak"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🔥  Daily Streak"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Achievements -->
+
+            <Button
+                android:id="@+id/btnAchievements"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🏆  Achievements &amp; Badges"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="20dp" />
+
+
+            <!-- Settings -->
+
+            <Button
+                android:id="@+id/btnSettings"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="⚙️  Settings"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="10dp" />
+
+
+            <!-- Logout -->
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Log Out"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_accent"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

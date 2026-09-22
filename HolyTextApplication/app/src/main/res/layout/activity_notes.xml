@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/HolyTextApplication_background">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/HolyTextApplication_primary"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="Personal Notes"
+        app:titleTextColor="@color/HolyTextApplication_white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Create Note Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/HolyTextApplication_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create Personal Reflection"
+                        android:textColor="@color/HolyTextApplication_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <EditText
+                        android:id="@+id/etNoteTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Note Title or Verse Reference"
+                        android:inputType="textCapSentences"
+                        android:padding="12dp"
+                        android:backgroundTint="@color/HolyTextApplication_primary"
+                        android:textColor="@color/HolyTextApplication_text_primary"
+                        android:textColorHint="@color/HolyTextApplication_text_secondary"
+                        android:layout_marginBottom="10dp" />
+
+                    <EditText
+                        android:id="@+id/etNoteContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:hint="Write your reflection, prayer, or study notes..."
+                        android:inputType="textMultiLine"
+                        android:gravity="top|start"
+                        android:padding="12dp"
+                        android:backgroundTint="@color/HolyTextApplication_primary"
+                        android:textColor="@color/HolyTextApplication_text_primary"
+                        android:textColorHint="@color/HolyTextApplication_text_secondary"
+                        android:layout_marginBottom="12dp" />
+
+                    <Button
+                        android:id="@+id/btnSaveNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="📝  Save Reflection Note (+5 FP)"
+                        android:textAllCaps="false"
+                        android:textColor="@color/HolyTextApplication_white"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/HolyTextApplication_primary" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Notes Section Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Reflections &amp; Journal"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarNotes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/tvEmptyNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No personal notes written yet. Share your reflections above!"
+                android:textColor="@color/HolyTextApplication_text_secondary"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:padding="20dp" />
+
+            <!-- Container for Notes -->
+            <LinearLayout
+                android:id="@+id/containerNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HolyText</string>
+    <string name="tagline">A Sanctuary for your soul.</string>
+    <string name="welcome_title">Welcome to HolyText</string>
+    <string name="description_text">Read Scripture, reflect on God\'s Word, and grow in your faith.</string>
+    <string name="button_start_reading">Start Reading</string>
+</resources>

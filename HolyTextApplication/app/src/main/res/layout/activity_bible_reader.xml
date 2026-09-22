@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/HolyTextApplication_background">
+
+    <!-- Back arrow toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/HolyTextApplication_primary"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="Bible Reader"
+        app:titleTextColor="@color/HolyTextApplication_white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Book spinner label -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book"
+                android:textStyle="bold"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spinnerBook"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Chapter input -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chapter"
+                android:textStyle="bold"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etChapter"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:hint="e.g. 3"
+                android:inputType="number"
+                android:padding="16dp"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:textColorHint="@color/HolyTextApplication_text_secondary"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnLoadChapter"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Load Chapter"
+                android:textAllCaps="false"
+                android:textColor="@color/HolyTextApplication_white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/HolyTextApplication_primary"
+                android:layout_marginBottom="16dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tvReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/HolyTextApplication_primary"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/tvScripture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/HolyTextApplication_text_primary"
+                android:textSize="16sp"
+                android:lineSpacingExtra="6dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
