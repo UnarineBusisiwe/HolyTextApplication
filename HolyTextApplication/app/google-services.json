@@ -12,7 +12,20 @@
           "package_name": "com.example.holytextapplication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "712120144521-nkqe31a54eqghii0jevf4edmglt6ba0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.holytextapplication",
+            "certificate_hash": "c010ba3e2fb1ddc9f7bf6962fefa5a29a52fd437"
+          }
+        },
+        {
+          "client_id": "712120144521-63efocs6sid6cglic3h4bkf14h0snv2c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBQkdXD1LRtFCiS52ViumSOYtLXSScAxwE"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712120144521-63efocs6sid6cglic3h4bkf14h0snv2c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

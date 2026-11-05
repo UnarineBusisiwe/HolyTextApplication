@@ -12,18 +12,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 
 class BibleReaderActivity : AppCompatActivity() {
 
     private val api = BibleApiClient.service
+    private var currentLanguage: String = "English"
+    private var currentTextSizeSetting: String = "Medium"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bible_reader)
 
+        // Load language and text size preferences
+        val prefs = getSharedPreferences("holytext_prefs", MODE_PRIVATE)
+        currentLanguage = prefs.getString("language", "English") ?: "English"
+        currentTextSizeSetting = prefs.getString("textSize", "Medium") ?: "Medium"
+
         // Back arrow toolbar
-        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        toolbar.subtitle = "Language: $currentLanguage"
         toolbar.setNavigationOnClickListener {
             Log.d("BibleReader", "Back arrow pressed")
             onBackPressedDispatcher.onBackPressed()
@@ -36,19 +47,16 @@ class BibleReaderActivity : AppCompatActivity() {
         val tvScripture = findViewById<TextView>(R.id.tvScripture)
         val progress = findViewById<ProgressBar>(R.id.progressBar)
 
-        // Populate books of the Bible
-        val books = arrayOf(
-            "Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy",
-            "Joshua", "Judges", "Ruth", "1 Samuel", "2 Samuel",
-            "1 Kings", "2 Kings", "Psalms", "Proverbs", "Ecclesiastes",
-            "Isaiah", "Jeremiah", "Lamentations", "Ezekiel", "Daniel",
-            "Matthew", "Mark", "Luke", "John", "Acts", "Romans",
-            "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians",
-            "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians",
-            "1 Timothy", "2 Timothy", "Titus", "Hebrews", "James",
-            "1 Peter", "2 Peter", "1 John", "2 John", "3 John",
-            "Jude", "Revelation"
-        )
+        // Set font size based on settings
+        val fontSizeSp = when (currentTextSizeSetting) {
+            "Small" -> 14f
+            "Large" -> 22f
+            else -> 18f
+        }
+        tvScripture.textSize = fontSizeSp
+
+        // Populate books of the Bible according to chosen language
+        val books = BibleLanguageHelper.getBooksForLanguage(currentLanguage)
         spinnerBook.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_dropdown_item,
@@ -56,7 +64,7 @@ class BibleReaderActivity : AppCompatActivity() {
         )
 
         btnLoad.setOnClickListener {
-            val book = spinnerBook.selectedItem.toString()
+            val selectedBookName = spinnerBook.selectedItem.toString()
             val chapterText = etChapter.text.toString().trim()
 
             // Validation
@@ -73,9 +81,10 @@ class BibleReaderActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Encode the query with + instead of a space
-            val encodedQuery = "${book.replace(" ", "+")}+$chapterNumber"
-            loadPassage(encodedQuery, tvReference, tvScripture, progress)
+            // Convert localized book name (e.g., Genese / Mattheo) to English for API
+            val englishBook = BibleLanguageHelper.toEnglishBookName(selectedBookName, currentLanguage)
+
+            loadPassage(englishBook, chapterNumber, currentLanguage, tvReference, tvScripture, progress)
         }
     }
 
@@ -83,8 +92,8 @@ class BibleReaderActivity : AppCompatActivity() {
      * Awards +5 Faith Points to the current user in Firestore.
      */
     private fun awardFaithPoints() {
-        val user = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser ?: return
-        val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val db = FirebaseFirestore.getInstance()
 
         db.collection("users").document(user.uid).get()
             .addOnSuccessListener { doc ->
@@ -103,7 +112,9 @@ class BibleReaderActivity : AppCompatActivity() {
     }
 
     private fun loadPassage(
-        query: String,
+        englishBook: String,
+        chapterNumber: Int,
+        language: String,
         tvReference: TextView,
         tvScripture: TextView,
         progress: ProgressBar
@@ -112,7 +123,8 @@ class BibleReaderActivity : AppCompatActivity() {
         tvScripture.text = ""
         tvReference.text = ""
 
-        Log.d("BibleReader", "Loading query: $query")
+        val query = "${englishBook.replace(" ", "+")}+$chapterNumber"
+        Log.d("BibleReader", "Loading query: $query in $language")
 
         lifecycleScope.launch {
             try {
@@ -129,16 +141,25 @@ class BibleReaderActivity : AppCompatActivity() {
                     return@launch
                 }
 
-                tvReference.text = response.reference ?: query
+                val localizedRef = BibleLanguageHelper.toLocalizedReference(englishBook, chapterNumber, language)
+                tvReference.text = localizedRef
 
-                val formatted = response.verses.joinToString("\n\n") { v ->
+                // Translate verses to Sepedi / Tshivenda / English
+                val localizedVerses = BibleLanguageHelper.translateVerses(
+                    englishBook,
+                    chapterNumber,
+                    response.verses,
+                    language
+                )
+
+                val formatted = localizedVerses.joinToString("\n\n") { v ->
                     "${v.verse ?: ""}. ${v.text?.trim() ?: ""}"
                 }
                 tvScripture.text = formatted
 
-                Log.d("BibleReader", "Loaded ${response.verses.size} verses")
+                Log.d("BibleReader", "Loaded ${response.verses.size} verses in $language")
 
-                //  Award points ONLY on success
+                // Award points ONLY on success
                 awardFaithPoints()
 
             } catch (e: Exception) {

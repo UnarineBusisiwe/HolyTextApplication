@@ -4,15 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,31 +21,23 @@ class SettingsActivity : AppCompatActivity() {
         getSharedPreferences("holytext_prefs", Context.MODE_PRIVATE)
     }
 
-    private lateinit var toolbar: MaterialToolbar
-    private lateinit var tvLanguageLabel: TextView
-    private lateinit var tvTextSizeLabel: TextView
-    private lateinit var switchNotifications: SwitchMaterial
-    private lateinit var btnSave: Button
-    private lateinit var btnLogout: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
-        toolbar = findViewById(R.id.toolbar)
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
         toolbar.setNavigationOnClickListener {
+            Log.d("SettingsActivity", "Back arrow pressed")
             onBackPressedDispatcher.onBackPressed()
         }
 
         val spinnerLanguage = findViewById<Spinner>(R.id.spinnerLanguage)
         val spinnerTextSize = findViewById<Spinner>(R.id.spinnerTextSize)
-        tvLanguageLabel = findViewById(R.id.tvLanguageLabel)
-        tvTextSizeLabel = findViewById(R.id.tvTextSizeLabel)
-        switchNotifications = findViewById(R.id.switchNotifications)
-        btnSave = findViewById(R.id.btnSaveSettings)
-        btnLogout = findViewById(R.id.btnLogoutSettings)
+        val switchNotifications = findViewById<SwitchMaterial>(R.id.switchNotifications)
+        val btnSave = findViewById<Button>(R.id.btnSaveSettings)
+        val btnLogout = findViewById<Button>(R.id.btnLogoutSettings)
 
-        // Languages array
+
+        // Language options
         val languages = arrayOf("English", "Tshivenda", "Sepedi")
         spinnerLanguage.adapter = ArrayAdapter(
             this,
@@ -57,7 +45,7 @@ class SettingsActivity : AppCompatActivity() {
             languages
         )
 
-        // Text sizes array
+        // Text size options
         val textSizes = arrayOf("Small", "Medium", "Large")
         spinnerTextSize.adapter = ArrayAdapter(
             this,
@@ -74,29 +62,24 @@ class SettingsActivity : AppCompatActivity() {
         spinnerTextSize.setSelection(textSizes.indexOf(savedSize).coerceAtLeast(0))
         switchNotifications.isChecked = savedNotif
 
-        updateUIForLanguage(savedLang)
+        Log.d("SettingsActivity", "Loaded prefs: lang=$savedLang, size=$savedSize, notif=$savedNotif")
 
-        // On Spinner language selected: live update UI text
-        spinnerLanguage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedLang = languages[position]
-                updateUIForLanguage(selectedLang)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
+        // Save button
         btnSave.setOnClickListener {
             val language = spinnerLanguage.selectedItem.toString()
             val textSize = spinnerTextSize.selectedItem.toString()
             val notifications = switchNotifications.isChecked
 
+            // 1. Save locally (SharedPreferences)
             prefs.edit()
                 .putString("language", language)
                 .putString("textSize", textSize)
                 .putBoolean("notifications", notifications)
                 .apply()
 
+            Log.d("SettingsActivity", "Saved locally: $language / $textSize / $notifications")
+
+            // 2. Save to Firestore (if logged in)
             val user = auth.currentUser
             if (user != null) {
                 val updates = mapOf(
@@ -105,35 +88,30 @@ class SettingsActivity : AppCompatActivity() {
                     "notificationsEnabled" to notifications
                 )
                 db.collection("users").document(user.uid)
-                    .set(updates, com.google.firebase.firestore.SetOptions.merge())
+                    .update(updates)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Settings saved! (${language})", Toast.LENGTH_SHORT).show()
+                        Log.d("SettingsActivity", "Firestore synced")
+                        Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Saved locally", Toast.LENGTH_SHORT).show()
+                    .addOnFailureListener { e ->
+                        Log.e("SettingsActivity", "Firestore sync failed", e)
+                        Toast.makeText(this, "Saved locally (sync pending)", Toast.LENGTH_SHORT).show()
                     }
             } else {
-                Toast.makeText(this, "Settings saved!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Settings saved", Toast.LENGTH_SHORT).show()
             }
         }
 
+        // Logout button
         btnLogout.setOnClickListener {
+            Log.d("SettingsActivity", "Logging out")
             auth.signOut()
-            prefs.edit().clear().apply()
+            prefs.edit().clear().apply()   // optional: clear local prefs on logout
             Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
-    }
-
-    private fun updateUIForLanguage(lang: String) {
-        toolbar.title = LanguageManager.getSettingsTitle(lang)
-        tvLanguageLabel.text = LanguageManager.getLanguageLabel(lang)
-        tvTextSizeLabel.text = LanguageManager.getTextSizeLabel(lang)
-        switchNotifications.text = LanguageManager.getNotificationsLabel(lang)
-        btnSave.text = LanguageManager.getSaveSettingsText(lang)
-        btnLogout.text = LanguageManager.getLogoutText(lang)
     }
 }

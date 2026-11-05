@@ -15,187 +15,123 @@ class HomeActivity : AppCompatActivity() {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private val db: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
+    // ✅ Class-level so helper methods can update them
     private lateinit var tvWelcome: TextView
     private lateinit var tvStreak: TextView
     private lateinit var tvFaithPoints: TextView
-
-    private lateinit var btnReadBible: Button
-    private lateinit var btnSearch: Button
-    private lateinit var btnBookmarks: Button
-    private lateinit var btnNotes: Button
-    private lateinit var btnReadingPlans: Button
-    private lateinit var btnAudioBible: Button
-    private lateinit var btnTrivia: Button
-    private lateinit var btnWordSearch: Button
-    private lateinit var btnStreak: Button
-    private lateinit var btnAchievements: Button
-    private lateinit var btnSettings: Button
-    private lateinit var btnLogout: Button
-
-    private var userName: String = "Friend"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Toolbar
-        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(
-            R.id.toolbar
-        )
-
+        // Toolbar back arrow
+        val toolbar = findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
         toolbar.setNavigationOnClickListener {
+            Log.d("HomeActivity", "Back arrow pressed")
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // Header
+        // Wire views
         tvWelcome = findViewById(R.id.tvWelcome)
         tvStreak = findViewById(R.id.tvStreak)
         tvFaithPoints = findViewById(R.id.tvFaithPoints)
+        val btnLogout = findViewById<Button>(R.id.btnLogout)
+        val btnSettings = findViewById<Button>(R.id.btnSettings)
+        val btnReadBible = findViewById<Button>(R.id.btnReadBible)
+        val btnTrivia = findViewById<Button>(R.id.btnTrivia)
 
-        // Buttons
-        btnReadBible = findViewById(R.id.btnReadBible)
-        btnSearch = findViewById(R.id.btnSearch)
-        btnBookmarks = findViewById(R.id.btnBookmarks)
-        btnNotes = findViewById(R.id.btnNotes)
-        btnReadingPlans = findViewById(R.id.btnReadingPlans)
-        btnAudioBible = findViewById(R.id.btnAudioBible)
-        btnTrivia = findViewById(R.id.btnTrivia)
-        btnWordSearch = findViewById(R.id.btnWordSearch)
-        btnStreak = findViewById(R.id.btnStreak)
-        btnAchievements = findViewById(R.id.btnAchievements)
-        btnSettings = findViewById(R.id.btnSettings)
-        btnLogout = findViewById(R.id.btnLogout)
-
-        // Listeners
-        btnReadBible.setOnClickListener {
-            startActivity(Intent(this, BibleReaderActivity::class.java))
-        }
-
-        btnSearch.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
-        }
-
-        btnBookmarks.setOnClickListener {
-            startActivity(Intent(this, BookmarksActivity::class.java))
-        }
-
-        btnNotes.setOnClickListener {
-            startActivity(Intent(this, NotesActivity::class.java))
-        }
-
-        btnReadingPlans.setOnClickListener {
-            startActivity(Intent(this, ReadingPlansActivity::class.java))
-        }
-
-        btnAudioBible.setOnClickListener {
-            startActivity(Intent(this, AudioBibleActivity::class.java))
-        }
-
-        btnTrivia.setOnClickListener {
-            startActivity(Intent(this, TriviaActivity::class.java))
-        }
-
-        btnWordSearch.setOnClickListener {
-            startActivity(Intent(this, WordSearchActivity::class.java))
-        }
-
-        btnStreak.setOnClickListener {
-            startActivity(Intent(this, StreakActivity::class.java))
-        }
-
-        btnAchievements.setOnClickListener {
-            startActivity(Intent(this, AchievementsActivity::class.java))
-        }
-
+        // Navigation buttons
         btnSettings.setOnClickListener {
+            Log.d("HomeActivity", "Open Settings")
             startActivity(Intent(this, SettingsActivity::class.java))
         }
-
+        btnReadBible.setOnClickListener {
+            Log.d("HomeActivity", "Open Bible Reader")
+            startActivity(Intent(this, BibleReaderActivity::class.java))
+        }
+        btnTrivia.setOnClickListener {
+            Log.d("HomeActivity", "Open Bible Trivia")
+            startActivity(Intent(this, TriviaActivity::class.java))
+        }
         btnLogout.setOnClickListener {
+            Log.d("HomeActivity", "Logout clicked")
             auth.signOut()
-            Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Signed out", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
+        // Must be logged in
         val user = auth.currentUser
         if (user == null) {
+            Log.w("HomeActivity", "No logged-in user – redirecting to Main")
             startActivity(Intent(this, MainActivity::class.java))
             finish()
             return
         }
 
-        loadUserProfile(user.uid)
-    }
+        Log.d("HomeActivity", "Home loaded for ${user.email}")
 
-    override fun onResume() {
-        super.onResume()
-        applyLanguageTranslations()
-        auth.currentUser?.uid?.let { loadUserProfile(it) }
-    }
-
-    private fun applyLanguageTranslations() {
-        val lang = LanguageManager.getSelectedLanguage(this)
-
-        tvWelcome.text = LanguageManager.getWelcomeText(lang, userName)
-        btnReadBible.text = LanguageManager.getReadBibleText(lang)
-        btnSearch.text = LanguageManager.getSearchBibleText(lang)
-        btnBookmarks.text = LanguageManager.getBookmarksText(lang)
-        btnNotes.text = LanguageManager.getNotesText(lang)
-        btnReadingPlans.text = LanguageManager.getReadingPlansText(lang)
-        btnAudioBible.text = LanguageManager.getAudioBibleText(lang)
-        btnTrivia.text = LanguageManager.getTriviaText(lang)
-        btnWordSearch.text = LanguageManager.getWordSearchText(lang)
-        btnStreak.text = LanguageManager.getStreakText(lang)
-        btnAchievements.text = LanguageManager.getAchievementsText(lang)
-        btnSettings.text = LanguageManager.getSettingsBtnText(lang)
-        btnLogout.text = LanguageManager.getLogoutText(lang)
-    }
-
-    private fun loadUserProfile(userId: String) {
-        db.collection("users")
-            .document(userId)
-            .get()
+        // Load profile from Firestore
+        db.collection("users").document(user.uid).get()
             .addOnSuccessListener { doc ->
-                userName = doc.getString("name") ?: "Friend"
+                val name = doc.getString("name") ?: "Friend"
                 val streak = doc.getLong("streak") ?: 0L
-                val faithPoints = doc.getLong("faithPoints") ?: 0L
+                val fp = doc.getLong("faithPoints") ?: 0L
+                val preferredLang = doc.getString("preferredLanguage") ?: "English"
+                val textSize = doc.getString("textSize") ?: "Medium"
+                val notifications = doc.getBoolean("notificationsEnabled") ?: true
 
-                val lang = LanguageManager.getSelectedLanguage(this)
-                tvWelcome.text = LanguageManager.getWelcomeText(lang, userName)
+                // Sync Firestore preferences to local SharedPreferences
+                val prefs = getSharedPreferences("holytext_prefs", MODE_PRIVATE)
+                prefs.edit()
+                    .putString("language", preferredLang)
+                    .putString("textSize", textSize)
+                    .putBoolean("notifications", notifications)
+                    .apply()
+
+                Log.d("HomeActivity", "Loaded profile: name=$name, streak=$streak, fp=$fp, lang=$preferredLang")
+
+                tvWelcome.text = "Welcome, $name"
                 tvStreak.text = "🔥 $streak day streak"
-                tvFaithPoints.text = "⭐ $faithPoints Faith Points"
+                tvFaithPoints.text = "⭐ $fp Faith Points"
 
+                // After the profile loads, check if streak needs updating
                 updateStreakIfNewDay()
             }
-            .addOnFailureListener { exception ->
-                Log.e("HomeActivity", "Failed to load profile", exception)
-                val lang = LanguageManager.getSelectedLanguage(this)
-                tvWelcome.text = LanguageManager.getWelcomeText(lang, "Friend")
+            .addOnFailureListener { e ->
+                Log.e("HomeActivity", "Failed to load profile", e)
+                tvWelcome.text = "Welcome"
             }
     }
 
+    /**
+     * Increments the streak if the user hasn't opened the app today.
+     */
     private fun updateStreakIfNewDay() {
         val user = auth.currentUser ?: return
         val userRef = db.collection("users").document(user.uid)
 
         userRef.get().addOnSuccessListener { doc ->
             val lastActive = doc.getString("lastActiveDate") ?: ""
-            val today = java.text.SimpleDateFormat(
-                "yyyy-MM-dd",
-                java.util.Locale.getDefault()
-            ).format(java.util.Date())
+            val today = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                .format(java.util.Date())
 
             if (lastActive != today) {
                 val currentStreak = doc.getLong("streak") ?: 0L
                 val newStreak = currentStreak + 1
 
-                userRef.set(
-                    mapOf("streak" to newStreak, "lastActiveDate" to today),
-                    com.google.firebase.firestore.SetOptions.merge()
+                userRef.update(
+                    "streak", newStreak,
+                    "lastActiveDate", today
                 ).addOnSuccessListener {
+                    Log.d("HomeActivity", "Streak updated: $currentStreak -> $newStreak")
                     tvStreak.text = "🔥 $newStreak day streak"
+                }.addOnFailureListener { e ->
+                    Log.e("HomeActivity", "Failed to update streak", e)
                 }
+            } else {
+                Log.d("HomeActivity", "Streak already counted today")
             }
         }
     }

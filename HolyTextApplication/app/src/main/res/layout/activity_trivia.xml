@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/HolyTextApplication_primary"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="Bible Trivia Quiz"
+        app:title="Bible Trivia"
         app:titleTextColor="@color/HolyTextApplication_white" />
 
     <ScrollView
@@ -26,141 +26,240 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Stats Bar Card -->
-            <androidx.cardview.widget.CardView
+            <!-- ⭐ QUIZ CONTAINER ⭐ -->
+            <LinearLayout
+                android:id="@+id/containerQuiz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="@color/HolyTextApplication_primary"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="6dp">
+                android:orientation="vertical">
 
+                <!-- Header Info -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="20dp"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
 
                     <TextView
-                        android:id="@+id/tvTriviaQuestionNumber"
+                        android:id="@+id/tvQuestionProgress"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Question 1 of 5"
-                        android:textColor="@color/HolyTextApplication_white"
+                        android:layout_height="wrap_content"
+                        android:text="Question 1 of 8"
+                        android:textStyle="bold"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/HolyTextApplication_primary" />
 
                     <TextView
-                        android:id="@+id/tvTriviaScore"
+                        android:id="@+id/tvFaithPointsEarned"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⭐ Score: 0"
-                        android:textColor="@color/HolyTextApplication_accent"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:text="⭐ 0 FP"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/HolyTextApplication_primary" />
 
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <!-- Quiz Question Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="@color/HolyTextApplication_surface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+                <ProgressBar
+                    android:id="@+id/progressQuiz"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:progressDrawable="@drawable/ic_launcher_background"
+                    android:progress="12"
+                    android:max="100"
+                    android:layout_marginBottom="20dp" />
 
-                <LinearLayout
+                <!-- Question Card -->
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/HolyTextApplication_white"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
 
                     <TextView
-                        android:id="@+id/tvTriviaQuestion"
+                        android:id="@+id/tvQuestionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Who was swallowed by a great fish when running away from God's command?"
+                        android:padding="20dp"
+                        android:text="Who built the Ark according to God's command?"
                         android:textColor="@color/HolyTextApplication_text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="20dp" />
+                        android:lineSpacingExtra="4dp" />
+                </androidx.cardview.widget.CardView>
 
-                    <!-- Option 1 -->
-                    <Button
-                        android:id="@+id/btnOption1"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="Option 1"
-                        android:textAllCaps="false"
-                        android:textColor="@color/HolyTextApplication_white"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/HolyTextApplication_primary"
-                        android:layout_marginBottom="10dp" />
+                <!-- Options -->
+                <Button
+                    android:id="@+id/btnOptionA"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="A. Noah"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_text_primary"
+                    android:backgroundTint="@color/HolyTextApplication_white"
+                    android:layout_marginBottom="10dp" />
 
-                    <!-- Option 2 -->
-                    <Button
-                        android:id="@+id/btnOption2"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="Option 2"
-                        android:textAllCaps="false"
-                        android:textColor="@color/HolyTextApplication_white"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/HolyTextApplication_primary"
-                        android:layout_marginBottom="10dp" />
+                <Button
+                    android:id="@+id/btnOptionB"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="B. Moses"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_text_primary"
+                    android:backgroundTint="@color/HolyTextApplication_white"
+                    android:layout_marginBottom="10dp" />
 
-                    <!-- Option 3 -->
-                    <Button
-                        android:id="@+id/btnOption3"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="Option 3"
-                        android:textAllCaps="false"
-                        android:textColor="@color/HolyTextApplication_white"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/HolyTextApplication_primary"
-                        android:layout_marginBottom="10dp" />
+                <Button
+                    android:id="@+id/btnOptionC"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="C. Abraham"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_text_primary"
+                    android:backgroundTint="@color/HolyTextApplication_white"
+                    android:layout_marginBottom="10dp" />
 
-                    <!-- Option 4 -->
-                    <Button
-                        android:id="@+id/btnOption4"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="Option 4"
-                        android:textAllCaps="false"
-                        android:textColor="@color/HolyTextApplication_white"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/HolyTextApplication_primary"
-                        android:layout_marginBottom="16dp" />
+                <Button
+                    android:id="@+id/btnOptionD"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="D. David"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_text_primary"
+                    android:backgroundTint="@color/HolyTextApplication_white"
+                    android:layout_marginBottom="16dp" />
 
-                    <TextView
-                        android:id="@+id/tvTriviaFeedback"
+                <!-- Feedback Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/HolyTextApplication_white"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/HolyTextApplication_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:layout_marginBottom="16dp" />
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <Button
-                        android:id="@+id/btnNextQuestion"
+                        <TextView
+                            android:id="@+id/tvFeedbackTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Correct! 🎉"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/HolyTextApplication_primary" />
+
+                        <TextView
+                            android:id="@+id/tvFeedbackExplanation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="Noah built the ark as commanded in Genesis 6."
+                            android:textColor="@color/HolyTextApplication_text_primary"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnNextQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Next Question"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_white"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/HolyTextApplication_primary"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- ⭐ RESULT CONTAINER ⭐ -->
+            <LinearLayout
+                android:id="@+id/containerResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:cardBackgroundColor="@color/HolyTextApplication_primary"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="Next Question ➡️"
-                        android:textAllCaps="false"
-                        android:textColor="@color/HolyTextApplication_white"
-                        android:textStyle="bold"
-                        android:backgroundTint="@color/HolyTextApplication_accent"
-                        android:visibility="gone" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp"
+                        android:gravity="center">
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/tvResultTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Trivia Completed! 🎉"
+                            android:textColor="@color/HolyTextApplication_white"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvResultScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Score: 8 / 8"
+                            android:textColor="@color/HolyTextApplication_white"
+                            android:textSize="18sp"
+                            android:layout_marginTop="12dp" />
+
+                        <TextView
+                            android:id="@+id/tvResultFaithPoints"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⭐ +80 Faith Points Earned!"
+                            android:textColor="@color/HolyTextApplication_white"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/btnPlayAgain"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Play Again"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_white"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/HolyTextApplication_primary"
+                    android:layout_marginBottom="12dp" />
+
+                <Button
+                    android:id="@+id/btnBackHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="Back to Home"
+                    android:textAllCaps="false"
+                    android:textColor="@color/HolyTextApplication_white"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/HolyTextApplication_accent" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
