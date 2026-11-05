@@ -1,135 +1,222 @@
 ## Github Link ## - https://github.com/UnarineBusisiwe/HolyTextApplication
 
-## YouTube ## - https://youtube.com/watch?v=NWK1Z_u3nIU&feature=shared
+## YouTube ## - 
 
 ## HolyText — A Sanctuary for your soul.
 ## HolyText  is a family-friendly Bible study and engagement Android app built in Kotlin. It combines Bible Reader, Search Bible, Bookmarks and Highlights, Study and Explore, and Streaks to encourage consistent Bible engagement.
 
+Project Overview
 
-## Purpose
-HolyText was designed to solve a common problem: most Bible apps offer either deep study tools or engagement mechanics, but rarely both in a single, family-friendly experience.
+HolyText is a native Android application developed using Kotlin in Android Studio. The application aims to support users in their personal Bible-study journeys by providing access to Scripture, language options and interactive learning activities in one mobile experience.
 
-## The app provides: 
-- A single, trusted Translation (KJV for the prototype, and NIV for the POE)
-- Study Features include Reading Plans, Audio bible, Bible Trivia and bible Word Search
-- Engagement features — Faith Points, streaks, and a daily verse.
-- Multilingual support — English (active), Tshivenda and Sepedi (planned for the final PoE).
+The application includes account registration and login, a home screen, a Bible reader, Bible trivia, a Faith Points reward mechanism, daily activity streak tracking and personal settings. Firebase services are used for authentication and cloud storage of user profile information.
 
-## Planned for the final PoE
-- Offline mode with Room database
-- Push notifications via Firebase Cloud Messaging
-- Full Tshivenda / Sepedi translations
-- Bible Trivia game
-- Word Search
-- Community reflections
-- Google Single Sign-On
+2. Purpose and Problem Statement
 
-##  REST API Integration
-The Bible Reader and Daily Verse screens call the free "bible-api.com" REST service via Retrofit and  OkHttp and JSON.
+Purpose
 
-## AI Usage Statement
+The purpose of HolyText is to provide a convenient and engaging mobile platform through which users can read Bible passages, explore Scripture in supported languages and reinforce their biblical knowledge through interactive activities.
 
-## Overview
-During the development of HolyText, I used AI tools — primarily **ChatGPT** — to assist with specific technical and documentation tasks. All AI-generated content was reviewed, tested on a physical device, and adjusted to fit this project's requirements before inclusion in the final submission.
+Problem being addressed
 
-## Areas Where AI Was Used
+Some users may find it difficult to maintain a consistent Bible-reading routine or may prefer to engage with Scripture in a familiar language. A reading-only experience may also offer limited interaction or motivation to return regularly.
 
-## Code Generation and Structure
-- Generating the initial scaffolding of Firebase Authentication flows (`RegisterActivity`, `LoginActivity`) including input validation and error messages.
-- Structuring the Retrofit client (`BibleApi.kt`) to connect the Bible Reader to the `bible-api.com` REST service.
-- Creating the pure-Kotlin `Validators` object so validation logic could be unit tested without Android framework dependencies.
+HolyText addresses these needs by bringing Bible reading, multilingual access, trivia and progress-based encouragement together in one application.
 
-## Debugging
-AI was used to interpret Android Logcat stack traces and Gradle build errors, including:
-- A "MalformedJsonException" caused by sending spaces instead of `+` in the Bible API query string.
-- A "NullPointerException" caused by calling "findViewById(R.id.toolbar)" on a layout without a toolbar.
-- A JVM-target mismatch between Kotlin (21) and Java (17), resolved using "kotlin { jvmToolchain(17) }".
-- Enabling AndroidX support in Gradle.
+##Project objectives
 
-## Documentation
-AI assisted with structuring this README, the AI Usage Statement, and the demo video script. All content was rewritten and customised to reflect HolyText specifically.
+• Provide a mobile interface for reading Bible chapters.
+• Support English, Sepedi and Tshivenda language options.
+• Allow users to create accounts and securely authenticate through Firebase Authentication.
+• Store user profile and selected preferences using Cloud Firestore.
+• Encourage regular engagement through Faith Points and activity streaks.
+• Reinforce biblical knowledge through multiple-choice trivia and explanations.
+• Allow users to personalise selected reading and application settings.
 
-## Testing
-AI provided example test cases for "ValidatorsTest.kt" covering email format, password rules, and chapter-number validation. The assertions were verified by running the tests locally and confirming all nine passed before submission.
+##Target Users
 
-## Areas Where AI Was NOT Used
-AI was not used for:
-- Choosing the app's purpose, name, or visual identity.
-- Deciding which features to implement (based on Part 1 research into Bible App for Kids, YouVersion Bible, and Bible Note: Sermon Notes).
-- Designing the Firestore schema or REST API endpoints.
-- Writing the UI layouts ('activity_main', 'activity_register', 'activity_home', 'activity_settings', 'activity_bible_reader', 'activity_daily_verse', 'activity_bookmarks').
+HolyText is intended for:
 
-## Verification and Accountability
-Every AI-assisted code snippet was:
-1. Read line by line to confirm it matched the project's structure and requirements.
-2. Tested on an Android device.
-3. Logged using 'Log.d()' and 'Log.e()' calls so behaviour could be verified in Logcat.
-4. Adjusted where necessary to align with the app's design decisions.
+• Individuals who want to read and study the Bible using a mobile device.
+• Users who prefer English, Sepedi or Tshivenda language options.
+• Young people and other users who enjoy interactive learning.
+• Individuals who want encouragement to build a regular Bible-reading habit.
 
-The unit tests, CI workflow, and demonstration video provide independent verification that the final application functions as intended.
+The application is designed for Android devices running Android 7.0 (API level 24) or later, subject to device compatibility.
 
-## HolyText — A Sanctuary for your soul.
-## HolyText  is a family-friendly Bible study and engagement Android app built in Kotlin. It combines Bible Reader, Search Bible, Bookmarks and Highlights, Study and Explore, and Streaks to encourage consistent Bible engagement.
+##Main Features
+Feature    and Description  
 
+Registration     |Users can create an account with their name, email address and password. Input validation checks required fields and matching passwords.
+Login            |Users can sign in using email and password through Firebase Authentication.                                                             
+Google Sign-In   |The login screen includes Google authentication using Android Credential Manager and Firebase Authentication.                           
+Home screen      |Displays a welcome message and the user’s Faith Points and activity streak when profile data is available.                              
+Bible reader     |Users select a Bible book and chapter. The application retrieves passage data through a REST API.                                       
+Language options |The application provides English, Sepedi and Tshivenda options through its language helper.                                             
+Bible trivia     |Users answer multiple-choice Bible questions and receive feedback and explanations.                                                     
+Faith Points     |Users can earn points for successful Bible-reading and trivia activities.                                                               
+Activity streak  |The application checks the user’s last active date and updates the consecutive-day activity count when appropriate.                     
+Personal settings|Users can select a language, choose a text size and enable or disable the notification preference.                                      
+Logout           |Users can sign out of their Firebase account.                                                                                           
 
-## Purpose
-HolyText was designed to solve a common problem: most Bible apps offer either deep study tools or engagement mechanics, but rarely both in a single, family-friendly experience.
+##Innovative Features Introduced
 
-## The app provides: 
-- A single, trusted Translation (KJV for the prototype, and NIV for the POE)
-- Study Features include Reading Plans, Audio bible, Bible Trivia and bible Word Search
-- Engagement features — Faith Points, streaks, and a daily verse.
-- Multilingual support — English (active), Tshivenda and Sepedi (planned for the final PoE).
+The following features make the current version more engaging than a basic Bible-reading application. They are implemented in the supplied Part 3 source code.
 
-## Planned for the final PoE
-- Offline mode with Room database
-- Push notifications via Firebase Cloud Messaging
-- Full Tshivenda / Sepedi translations
-- Bible Trivia game
-- Word Search
-- Community reflections
-- Google Single Sign-On
+##Multilingual Bible experience
 
-##  REST API Integration
-The Bible Reader and Daily Verse screens call the free "bible-api.com" REST service via Retrofit and  OkHttp and JSON.
+HolyText includes English, Sepedi and Tshivenda language options. The BibleLanguageHelper class supports language-specific Bible book names, references and verse text handling. This improves accessibility for users who are more comfortable engaging with Scripture in one of the supported languages.
 
-## AI Usage Statement
+##Faith Points reward system
 
-## Overview
-During the development of HolyText, I used AI tools — primarily **ChatGPT** — to assist with specific technical and documentation tasks. All AI-generated content was reviewed, tested on a physical device, and adjusted to fit this project's requirements before inclusion in the final submission.
+The application introduces a points-based encouragement mechanism. Users can earn Faith Points through supported activities, including successfully loading a Bible passage and answering trivia questions. The points are associated with the user’s profile in Cloud Firestore.
 
-## Areas Where AI Was Used
+##Daily activity streak tracking
 
-## Code Generation and Structure
-- Generating the initial scaffolding of Firebase Authentication flows (`RegisterActivity`, `LoginActivity`) including input validation and error messages.
-- Structuring the Retrofit client (`BibleApi.kt`) to connect the Bible Reader to the `bible-api.com` REST service.
-- Creating the pure-Kotlin `Validators` object so validation logic could be unit tested without Android framework dependencies.
+HolyText records a user’s last active date and streak value. When the user returns on a different date, the application checks the stored date and updates the streak. This feature is intended to encourage consistency in Bible study.
 
-## Debugging
-AI was used to interpret Android Logcat stack traces and Gradle build errors, including:
-- A "MalformedJsonException" caused by sending spaces instead of `+` in the Bible API query string.
-- A "NullPointerException" caused by calling "findViewById(R.id.toolbar)" on a layout without a toolbar.
-- A JVM-target mismatch between Kotlin (21) and Java (17), resolved using "kotlin { jvmToolchain(17) }".
-- Enabling AndroidX support in Gradle.
+##Interactive Bible trivia
 
-## Documentation
-AI assisted with structuring this README, the AI Usage Statement, and the demo video script. All content was rewritten and customised to reflect HolyText specifically.
+The trivia feature turns biblical learning into an interactive activity. It includes multiple-choice answers, question progress, scoring, feedback and explanations. Questions and answer options are provided in the supported languages.
 
-## Testing
-AI provided example test cases for "ValidatorsTest.kt" covering email format, password rules, and chapter-number validation. The assertions were verified by running the tests locally and confirming all nine passed before submission.
+##Google authentication
 
-## Areas Where AI Was NOT Used
-AI was not used for:
-- Choosing the app's purpose, name, or visual identity.
-- Deciding which features to implement (based on Part 1 research into Bible App for Kids, YouVersion Bible, and Bible Note: Sermon Notes).
-- Designing the Firestore schema or REST API endpoints.
-- Writing the UI layouts ('activity_main', 'activity_register', 'activity_home', 'activity_settings', 'activity_bible_reader', 'activity_daily_verse', 'activity_bookmarks').
+In addition to email-and-password login, users can access the Google Sign-In option. This provides an alternative authentication route and reduces the need to enter credentials manually each time an account is created or accessed.
 
-## Verification and Accountability
-Every AI-assisted code snippet was:
-1. Read line by line to confirm it matched the project's structure and requirements.
-2. Tested on an Android device.
-3. Logged using 'Log.d()' and 'Log.e()' calls so behaviour could be verified in Logcat.
-4. Adjusted where necessary to align with the app's design decisions.
+##Personalised reading preferences
+
+Users can choose a preferred language and Bible text size. The selected preferences are saved locally using Android SharedPreferences and are also synchronised with the user’s Firestore profile when the user is signed in and the update succeeds.
+
+##Design Considerations
+
+The design and development of HolyText considered the following factors:
+
+##Usability and navigation
+
+The application uses separate screens for registration, login, the home page, Bible reading, trivia and settings. This separates the main tasks and helps users navigate the application without placing every function on one screen.
+
+##Accessibility and language
+
+Language selection supports users who prefer English, Sepedi or Tshivenda. Text-size settings provide Small, Medium and Large options to make Bible passages more comfortable to read.
+
+##User experience and engagement
+
+Faith Points, trivia feedback and daily streaks introduce interactive elements that encourage continued use. Progress indicators help users understand their position within a trivia session.
+
+##Authentication and data protection
+
+Firebase Authentication manages account sign-in and registration. User profile information and selected settings are stored in Cloud Firestore under the authenticated user’s unique identifier. Input validation is performed before registration and login requests are submitted.
+
+Firebase security rules must be configured to ensure that users can only access or modify data they are authorised to use. Authentication alone does not replace appropriate Firestore security rules.
+
+##Performance and connectivity
+
+The Bible reader retrieves passage information from an external REST API. A loading indicator is displayed while a passage is being retrieved, and the application provides feedback when a request fails or no passage is returned. An internet connection is therefore required for API-based Bible passage retrieval.
+
+##Maintainability
+
+The project separates some responsibilities into individual Kotlin classes. For example, BibleApi handles the API service definition, BibleLanguageHelper handles language-related processing and Validators contains reusable input-validation functions. This makes the code easier to understand, test and maintain.
+
+##Application Architecture and Data
+
+HolyText is organised as an Android application with activity-based screens and supporting helper classes.
+
+Main application components
+
+• MainActivity: application entry screen.
+• RegisterActivity: account registration and input validation.
+• LoginActivity: email/password and Google sign-in.
+• HomeActivity: user welcome information, Faith Points and streak display.
+• BibleReaderActivity: Bible book and chapter selection and passage display.
+• TriviaActivity: interactive Bible quiz, scoring and feedback.
+• SettingsActivity: language, text-size and notification preferences.
+• BibleApi: Retrofit service and Bible API response models.
+• BibleLanguageHelper: language-related Bible book and verse processing.
+• Validators: reusable validation functions.
+
+Firebase data
+
+The supplied implementation uses a Firestore collection named users. A user document is identified using the Firebase Authentication user ID. Profile fields used by the application include:
+
+• name
+• email
+• preferredLanguage
+• notificationsEnabled
+• streak
+• faithPoints
+• lastActiveDate
+• createdAt
+• textSize (when a text-size preference is synchronised)
+
+The application also uses Android SharedPreferences under holytext_prefs to retain local language, text-size and notification preferences.
+
+Bible API
+
+The Bible reader uses Retrofit to request a passage from the configured Bible API service. The response is mapped into Kotlin data models and displayed in the reader. The language helper processes the language-specific book names, references and verse text.
+
+##GitHub and Version Control
+
+GitHub is used as the central repository for storing and managing the HolyText source code.
+
+How GitHub is used
+
+1. Repository hosting: The Android Studio project is maintained in a GitHub repository so that the source code is accessible to authorised project contributors.
+2. Version control: Git tracks changes to the project files over time.
+3. Commit history: Contributors can commit changes with messages describing the work completed.
+4. Collaboration: Team members can share code, review updates and contribute to the same project.
+5. Backup and access: The remote repository provides a shared copy of the project’s source code.
+
+##Release Notes
+
+Release notes document the development progress from the original prototype to the current version. The entries below describe functionality confirmed in the supplied source code. The exact prototype-to-final comparison must be checked against the original prototype repository or project files before submission.
+
+Version 1.0.0 – Part 3 final development
+
+Release status: Part 3 documentation/build candidate
+Platform: Android
+Development language: Kotlin
+
+Features included in the supplied version
+
+• Added or included Firebase Authentication for email-and-password account registration and login.
+• Included Google Sign-In through Credential Manager and Firebase Authentication.
+• Integrated Cloud Firestore for user profile information and selected preferences.
+• Implemented a Bible reader using Retrofit and a REST API.
+• Added English, Sepedi and Tshivenda language handling.
+• Implemented Bible trivia with multiple-choice answers, question progress, scoring and explanations.
+• Added the Faith Points reward mechanism for supported reading and trivia activities.
+• Implemented daily activity streak tracking using the user’s last active date.
+• Added user settings for language, text size and notification preference.
+• Added reusable validation functions and JUnit tests for email, password and chapter validation.
+
+Innovative features highlighted in this release
+
+1. Multilingual Bible reading support for English, Sepedi and Tshivenda.
+2. Faith Points to encourage participation in Bible reading and learning activities.
+3. Daily streak tracking to encourage consistent engagement.
+4. Interactive Bible trivia with scoring and explanations.
+5. Google Sign-In as an alternative authentication method.
+6. Personalised language and text-size preferences.
+
+##Improvements and technical work
+
+• Organised application functionality into separate activities and helper classes.
+• Added asynchronous API retrieval and loading/error feedback in the Bible reader.
+• Added local preference storage and Firestore preference synchronisation.
+• Added unit tests for reusable validation logic.
+• Prepared an automated GitHub Actions workflow for build and test checks (once the workflow file is committed and successfully executed).
+
+## Known Limitations and Future Improvements
+
+The following are potential areas for further development. They should not be interpreted as features already completed:
+
+• Expand the Bible content and verify the accuracy and consistency of all supported-language translations.
+• Add offline Bible reading and local passage storage.
+• Expand the trivia question bank and consider additional difficulty levels.
+• Implement and test actual notification delivery if notifications are part of the intended user experience.
+• Improve error handling and synchronisation when the device has an unstable internet connection.
+• Add further automated UI and integration tests.
+• Review Firestore security rules and test access control.
+• Consider additional accessibility improvements.
 
 The unit tests, CI workflow, and demonstration video provide independent verification that the final application functions as intended.
