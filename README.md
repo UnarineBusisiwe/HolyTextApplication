@@ -1,6 +1,6 @@
 ## Github Link ## - https://github.com/UnarineBusisiwe/HolyTextApplication
 
-## YouTube ## - 
+## YouTube ## - https://youtube.com/watch?v=2GtP8GTKnl0&feature=shared
 
 ## HolyText — A Sanctuary for your soul.
 ## HolyText  is a family-friendly Bible study and engagement Android app built in Kotlin. It combines Bible Reader, Search Bible, Bookmarks and Highlights, Study and Explore, and Streaks to encourage consistent Bible engagement.
