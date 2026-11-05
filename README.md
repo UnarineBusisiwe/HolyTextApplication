@@ -5,13 +5,13 @@
 ## HolyText — A Sanctuary for your soul.
 ## HolyText  is a family-friendly Bible study and engagement Android app built in Kotlin. It combines Bible Reader, Search Bible, Bookmarks and Highlights, Study and Explore, and Streaks to encourage consistent Bible engagement.
 
-Project Overview
+##Project Overview
 
 HolyText is a native Android application developed using Kotlin in Android Studio. The application aims to support users in their personal Bible-study journeys by providing access to Scripture, language options and interactive learning activities in one mobile experience.
 
 The application includes account registration and login, a home screen, a Bible reader, Bible trivia, a Faith Points reward mechanism, daily activity streak tracking and personal settings. Firebase services are used for authentication and cloud storage of user profile information.
 
-2. Purpose and Problem Statement
+##Purpose and Problem Statement
 
 Purpose
 
