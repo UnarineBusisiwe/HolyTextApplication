@@ -220,3 +220,25 @@ The following are potential areas for further development. They should not be in
 • Consider additional accessibility improvements.
 
 The unit tests, CI workflow, and demonstration video provide independent verification that the final application functions as intended.
+
+## AI Tools Usage and Acknowledgement
+
+Artificial Intelligence (AI) tools were used as supporting resources during the development and documentation of the HolyText Android application. ChatGPT (OpenAI) was used to assist with understanding programming concepts, troubleshooting technical issues and improving project documentation.
+
+The following are examples of how AI assistance was utilised:
+
+## Code assistance: ChatGPT was used to explain Kotlin code, Android development concepts and Firebase integration, particularly the interaction between Firebase Authentication and Cloud Firestore.
+## Debugging and troubleshooting: AI assistance was used to investigate errors and understand possible causes of database connection and data-storage issues, including the difference between authenticating users through Google Sign-In and creating their corresponding Firestore user profiles.
+
+## Technical guidance: ChatGPT provided explanations and suggested approaches for implementing and understanding application functionality, including user authentication, database operations, API integration and application testing.
+
+## Documentation: ChatGPT assisted in structuring and improving the GitHub README file, explaining the application’s purpose, features, design considerations, technologies used, GitHub version control and GitHub Actions.
+## Testing guidance: AI assistance was used to identify possible test scenarios and provide guidance on verifying application functionality.
+
+AI-generated suggestions and code examples were treated as supporting references rather than automatically accepted solutions. The project code and recommendations were reviewed and considered in relation to the existing application implementation.
+
+The development team remains responsible for understanding the application, making implementation decisions, testing functionality and ensuring that the submitted work accurately represents the completed project.
+
+AI tool acknowledgement:
+
+OpenAI. (2026). ChatGPT [Generative AI tool]. https://chatgpt.com/
